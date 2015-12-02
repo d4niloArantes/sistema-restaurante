@@ -1,0 +1,114 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css/bootstrap.css"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+	<div class="container">
+		<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Logout" class="btn btn-danger"/>
+		</form>
+		<div class="panel panel-default">
+			<ul class="nav nav-tabs">
+				<li role="presentation">
+					<a href="/pedido">
+						<span class="glyphicon glyphicon-pencil"/>
+						Realizar/Finalizar Pedido
+					</a>
+				</li>
+				<li role="presentation" class="active">
+					<a href="/itemPedido2">
+						<span class="glyphicon glyphicon-duplicate"/>
+						Acompanhar pedido
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="/mesa">
+						<span class="glyphicon glyphicon-list"/>
+						Mesas
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="/prato">
+						<span class="glyphicon glyphicon-list-alt"/>
+						Cardápio
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="/cozinha">
+						<span class="glyphicon glyphicon-cutlery"/>
+						Cozinha
+					</a>
+				</li>
+			</ul>
+			<h3 class = "list-group-item active">Pedidos</h3>
+			<div class="panel-body">
+				<!-- <form class="form" method="post" action="/itemPedido/save">
+				<fieldset>
+	                	<legend>Cadastrar um pedido</legend>
+					<div class="form-group">
+						<label for="nome">Pedido:</label>
+						<select class="selectpicker" name="pedido">
+						      <option th:each="pedido:${pedidos}" th:text="${pedido.id}" 
+						      th:value="${pedido.id}"/>
+						</select><br/>
+						<label>Prato:</label>
+						<select class="selectpicker" name="item">
+						      <option th:each="item:${itens}" th:text="${item.descItem}" 
+						      th:value="${item.id}"/>
+						</select><br/>
+						<label>Quantidade:</label>
+						<input type="text" name="qtdItem" class="form-control"/>
+					</div>
+					<button type="submit" class="btn .btn-primary">Salvar</button>
+				</fieldset>
+				</form> -->
+				<div class="panel panel-default">  
+  					<div class="panel-heading">Lista de Pedidos</div>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Mesa</th>
+								<th>Descrição</th>
+								<th>Quantidade</th>
+								<th>Valor Total</th>
+								<th>Finalizado</th>
+								<th>Cancelar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="iPedido:${iPedidos}">
+								<td th:text="${iPedido.pedido.mesa.id}"></td>
+								<td th:text="${iPedido.item.descItem}"></td>
+								<td th:text="${iPedido.qtdItem}"></td>
+								<td th:text="${iPedido.valor}"></td>
+								<td>
+									<div th:if="${iPedido.estado} == 0">
+										SIM<span class="glyphicon glyphicon-thumbs-up"></span>
+									</div>
+									<div th:if="${iPedido.estado} == 1">
+										NÃO<span class="glyphicon glyphicon-thumbs-down"></span>
+									</div>
+								</td>
+								<td>
+									<div th:if="${iPedido.estado} == 0">
+										<span class="glyphicon glyphicon-minus"/>
+									</div>
+									<div th:if="${iPedido.estado} == 1">
+										<a th:href="@{/itemPedido/del(id=${iPedido.id})}" class="btn btn-danger">
+											<span class="glyphicon glyphicon-remove"/>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
