@@ -5,7 +5,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,7 +19,7 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter
 	private static final String SQL_PERMISSAO = 
 			"select u.nome, p.papel "
 			+"from usuarios u join usuario_papel up on (up.usuario_id = u.id) "
-			+ "join papeis p on (up.papel_id = p.id) where nome = ?";
+			+ "join papeis p on (up.papel_id = p.id) where nome = ? ";
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception 
