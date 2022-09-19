@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  db:
+    image: mysql
+    container_name: mysql-app-restaurante
+    volumes:
+       - ./restaurante.sql:/db-init/restaurante.sql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: restaurante
+    command: --init-file /db-init/restaurante.sql
+
+  app:
+    image: maven:3.6.0-jdk-8
+    container_name: app-restaurante
+    volumes:
+      - "../sistema-restaurante:/deploy"
+    working_dir: "/deploy"
+    ports:
+      - "8080:8080"
+    command: /bin/bash -c "mvn clean && mvn install && java -jar target/sistema-restaurante.jar"
+    links:
+      - db
